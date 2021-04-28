@@ -1,0 +1,45 @@
+version: "3.8"
+
+volumes:
+  widget-mongodb:
+
+services:
+  mongodb:
+    image: "mongo:latest"
+    environment:
+      "MONGO_INITDB_ROOT_USERNAME": "arc-widget"
+      "MONGO_INITDB_ROOT_PASSWORD": "secret"
+    ports:
+      - "27017:27017"
+    volumes:
+      - "widget-mongodb:/data/db"
+
+  server:
+    build:
+      context: "./server"
+      target: "develop-stage"
+    depends_on:
+      - "mongodb"
+    environment:
+      # in real-life scenario this must be in .env file
+      "MONGO_INITDB_ROOT_USERNAME": "arc-widget"
+      "MONGO_INITDB_ROOT_PASSWORD": "secret"
+      "PORT": "8081"
+    ports:
+      - "8081:8081"
+    volumes:
+      - "./server/src:/app/src"
+      - "./server/tests:/app/tests"
+    command: '/bin/sh -c "yarn serve"'
+
+  client:
+    build:
+      context: "./client"
+      target: "develop-stage"
+    ports:
+      - "8080:8080"
+    volumes:
+      - "./client/src:/app/src"
+      - "./client/public:/app/public"
+      - "./client/tests:/app/tests"
+    command: '/bin/sh -c "yarn serve"'
