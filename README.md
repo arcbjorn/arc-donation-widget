@@ -9,9 +9,6 @@
 # - remove containers for services not defined in the compose file
 $ docker-compose down --rmi local --volumes --remove-orphans
 
-# Check .env config in the api folder. Create if not exists (you can copy and edit .env.sample)
-# Check .env config in the fe folder. Create if not exists (you can copy and edit .env.sample)
-
 # Rebuild containers:
 $ docker-compose build --no-cache
 
