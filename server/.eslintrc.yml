@@ -8,6 +8,7 @@ parserOptions:
   ecmaVersion: 2021
   sourceType: module
 plugins:
-  - 'prettier'
-  - '@typescript-eslint'
+  - prettier
+  - @typescript-eslint
+  - import/typescript
 rules: {}
