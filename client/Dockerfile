@@ -1,5 +1,5 @@
 # develop stage
-FROM node:lts-alpine as develop-stage
+FROM node:lts-slim as develop-stage
 WORKDIR /app
 RUN chown node:node /app
 USER node
