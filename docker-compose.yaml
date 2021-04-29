@@ -6,9 +6,9 @@ volumes:
 services:
   mongodb:
     image: "mongo:latest"
-    environment:
-      "MONGO_INITDB_ROOT_USERNAME": "widget"
-      "MONGO_INITDB_ROOT_PASSWORD": "secret"
+    # environment:
+    #   "MONGO_INITDB_ROOT_USERNAME": "widget"
+    #   "MONGO_INITDB_ROOT_PASSWORD": "secret"
     ports:
       - "27017:27017"
     volumes:
