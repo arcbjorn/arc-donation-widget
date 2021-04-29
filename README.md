@@ -12,7 +12,7 @@ $ docker-compose down --rmi local --volumes --remove-orphans
 # Rebuild containers:
 $ docker-compose build --no-cache
 
-# Run the application in the development mode:
+# Run the application in the development mode (all containers):
 $ docker-compose up
 
 # Also you can run only needed services:
