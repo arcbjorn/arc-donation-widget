@@ -1,5 +1,6 @@
-export interface TestRequest {
-  test: string;
+export interface DonationRequest {
+  amount: number;
+  currency: string;
 }
 
 export enum ModelType {
