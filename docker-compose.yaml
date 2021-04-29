@@ -7,7 +7,7 @@ services:
   mongodb:
     image: "mongo:latest"
     environment:
-      "MONGO_INITDB_ROOT_USERNAME": "arc-widget"
+      "MONGO_INITDB_ROOT_USERNAME": "widget"
       "MONGO_INITDB_ROOT_PASSWORD": "secret"
     ports:
       - "27017:27017"
@@ -20,11 +20,8 @@ services:
       target: "develop-stage"
     depends_on:
       - "mongodb"
-    environment:
-      # in real-life scenario this must be in .env file
-      "MONGO_INITDB_ROOT_USERNAME": "arc-widget"
-      "MONGO_INITDB_ROOT_PASSWORD": "secret"
-      "PORT": "8081"
+    env_file:
+      - "./server/.env"
     ports:
       - "8081:8081"
     volumes:

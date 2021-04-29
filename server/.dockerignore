@@ -4,5 +4,5 @@ node_modules
 .gitignore
 .dockerignore
 *.md
-.env
-.env.*
+# .env
+# .env.*
