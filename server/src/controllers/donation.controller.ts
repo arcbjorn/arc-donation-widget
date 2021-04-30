@@ -1,28 +1,41 @@
 import { Context } from 'koa';
-import { DonationRequest } from '../types';
+import { DonationRequest, DonationResponse, ResponseErrorType } from '../types';
+import { Donation } from '../models';
+import { Currency } from '../models';
 
 export default class DonationController {
-  public static async record(ctx: Context, next: () => Promise<any>) {
-    const data = <DonationRequest>ctx.request.body;
-    console.log(data);
+  public static async record(ctx: Context): Promise<void> {
+    const donation = <DonationRequest>ctx.request.body;
 
-    ctx.response.body = { amount: data.amount, currency: data.currency };
-    ctx.response.status = 200;
+    try {
+      const currency = await Currency.findOne({ code: donation.currency });
+      if (!currency) {
+        throw new Error(ResponseErrorType.currencyNotFound);
+      }
 
-    // ctx.response.
+      await Donation.create({ amount: donation.amount, currency: currency._id });
+      ctx.response.status = 200;
+      ctx.response.body = <DonationResponse>{ ok: true };
+    } catch (error) {
+      if (error.message === ResponseErrorType.currencyNotFound) {
+        ctx.response.status = 404;
+      } else {
+        ctx.response.status = 400;
+      }
 
-    await next();
+      ctx.response.body = <DonationResponse>{ ok: false, error: error.message };
+    }
   }
 
-  public static async all(ctx: Context, next: () => Promise<any>) {
-    ctx.response.body = [
-      {
-        amount: 40,
-        currency: 'USD',
-      },
-    ];
-    ctx.response.status = 200;
+  public static async all(ctx: Context): Promise<void> {
+    try {
+      const donations = await Donation.find({}).populate('currency');
 
-    await next();
+      ctx.response.status = 200;
+      ctx.response.body = donations;
+    } catch (error) {
+      ctx.response.status = 400;
+      ctx.response.body = <DonationResponse>{ ok: false, error: error.message };
+    }
   }
 }
