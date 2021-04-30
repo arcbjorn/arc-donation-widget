@@ -20,5 +20,5 @@ const DonationSchema: Schema = new Schema(
   { timestamps: true },
 );
 
-// Export the model and return your IDonation interface
-export default mongoose.model<IDonation>(ModelType.Donation, DonationSchema);
+// Export the model & return IDonation interface
+export const Donation = mongoose.model<IDonation>(ModelType.Donation, DonationSchema);
