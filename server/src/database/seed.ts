@@ -22,9 +22,9 @@ export const seed = async () => {
         }
       });
 
-      console.log(Currency.find({}, (_, docs) => console.log(docs)));
+      // Currency.find({}, (_, docs) => console.log(docs));
     });
   } catch (error) {
-    console.error(`${ConsoleMessageType.currenciesSeedError}: ${error}`);
+    console.error(`${ConsoleMessageType.currenciesSeedError}: ${error.message}`);
   }
 };
