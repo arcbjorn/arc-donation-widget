@@ -3,6 +3,11 @@ export interface DonationRequest {
   currency: string;
 }
 
+export interface DonationResponse {
+  ok: boolean;
+  error?: string;
+}
+
 export enum ModelType {
   Donation = 'Donation',
   Currency = 'Currency',
@@ -14,4 +19,8 @@ export enum ConsoleMessageType {
   connectionErrorTo = 'Error connecting to database:',
   currenciesSeedError = 'Error while seeding default currencies:',
   serverStartSuccess = 'Server started at: http://localhost:',
+}
+
+export enum ResponseErrorType {
+  currencyNotFound = 'Donation currency does not exit in database. Might be seeding error',
 }
