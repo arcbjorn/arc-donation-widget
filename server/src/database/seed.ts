@@ -1,4 +1,5 @@
 import { Currency } from '../models';
+import { ConsoleMessageType } from '../types';
 
 const defaultCurrencies = [
   { name: 'US Dollar', code: 'USD', symbol: '$', rate: 1 },
@@ -8,18 +9,22 @@ const defaultCurrencies = [
 ];
 
 export const seed = async () => {
-  Currency.find({}, (err, currencies) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-
-    defaultCurrencies.forEach((curr) => {
-      if (!currencies.find((c) => (c.name = curr.name))) {
-        Currency.create(curr);
+  try {
+    Currency.find({}, (err, currencies) => {
+      if (err) {
+        console.error(err);
+        return;
       }
-    });
 
-    console.log(Currency.find({}, (_, docs) => console.log(docs)));
-  });
+      defaultCurrencies.forEach((curr) => {
+        if (!currencies.find((c) => (c.code = curr.code))) {
+          Currency.create(curr);
+        }
+      });
+
+      console.log(Currency.find({}, (_, docs) => console.log(docs)));
+    });
+  } catch (error) {
+    console.error(`${ConsoleMessageType.currenciesSeedError}: ${error}`);
+  }
 };

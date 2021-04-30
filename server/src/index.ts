@@ -5,6 +5,7 @@ import json from 'koa-json';
 import bodyParser from 'koa-bodyparser';
 import router from './router';
 import { connect } from './database';
+import { ConsoleMessageType } from './types';
 
 const app = new Koa();
 
@@ -22,7 +23,7 @@ app.use(bodyParser());
 app.use(router.routes()).use(router.allowedMethods());
 
 app.listen(PORT, () => {
-  console.log(`Koa server started at: http://localhost:${PORT}`);
+  console.info(`${ConsoleMessageType.serverStartSuccess} ${PORT}`);
 });
 
 connect(DB);
