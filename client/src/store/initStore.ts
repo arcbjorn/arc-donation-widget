@@ -7,7 +7,7 @@ export const currencies: Currency[] = [
   { name: "Russian Ruble", code: "RUB", symbol: "₽", rate: 63.461993 },
 ];
 
-const usdPesets = [40, 100, 200, 1000, 2500, 5000];
+const usdPresets = [40, 100, 200, 1000, 2500, 5000];
 
 // TODO: Refactor / performance issues
 function beutify(n: number): number {
@@ -29,7 +29,7 @@ export function initPresets(): Preset[] {
     rates[code] = rate;
   });
 
-  presets = usdPesets.map((usdValue) => ({
+  presets = usdPresets.map((usdValue) => ({
     [CurrencyCode.USD]: convertCurrency(usdValue, rates[CurrencyCode.USD]),
     [CurrencyCode.EUR]: convertCurrency(usdValue, rates[CurrencyCode.EUR]),
     [CurrencyCode.GBP]: convertCurrency(usdValue, rates[CurrencyCode.GBP]),
