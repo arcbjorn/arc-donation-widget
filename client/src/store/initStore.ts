@@ -9,8 +9,15 @@ export const currencies: Currency[] = [
 
 const usdPesets = [40, 100, 200, 1000, 2500, 5000];
 
+// TODO: Refactor / performance issues
+function beutify(n: number): number {
+  return n < 30 || (n % 10 === 0 && n % 3 === 0)
+    ? n
+    : beutify(Math.trunc(n / 10) * 10);
+}
+
 function convertCurrency(value: number, rate: number): string {
-  const result = value * rate;
+  const result = rate === 1 ? value : beutify(value * rate);
   return new Intl.NumberFormat("en-US").format(result);
 }
 
