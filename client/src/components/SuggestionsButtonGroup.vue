@@ -26,14 +26,18 @@ export default defineComponent({
   methods: {
     ...mapActions([ActionType.setDonationValue]),
     getActiveButton(preset: Preset): string {
-      if (this.donationValue.toString() === this.getValue(preset)) {
+      if (
+        this.donationValue === preset[this.activeCurrency.code as CurrencyCode]
+      ) {
         return "bg-green-500 text-white border-transparent";
       } else {
         return "bg-white border-gray-400 hover:bg-green-100";
       }
     },
     getValue(preset: Preset) {
-      return preset[this.activeCurrency.code as CurrencyCode];
+      return preset[this.activeCurrency.code as CurrencyCode].toLocaleString(
+        "en-US"
+      );
     },
   },
 });

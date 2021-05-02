@@ -13,7 +13,7 @@ export type Currency = {
 };
 
 export type Preset = {
-  [key in CurrencyCode]: string;
+  [key in CurrencyCode]: number;
 };
 
 export type Donation = {

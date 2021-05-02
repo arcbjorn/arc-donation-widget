@@ -44,9 +44,8 @@ function beautify(n: number): number {
   }
 }
 
-function convertCurrency(value: number, rate: number): string {
-  const result = rate === 1 ? value : beautify(Math.round(value * rate));
-  return new Intl.NumberFormat("en-US").format(result);
+function convertCurrency(value: number, rate: number): number {
+  return rate === 1 ? value : beautify(Math.round(value * rate));
 }
 
 export default convertCurrency;
