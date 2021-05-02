@@ -1,16 +1,15 @@
-function setRequestOptions(amount: number, currency: string) {
+import { DonationData } from "@/types";
+
+function setRequestOptions(donationData: DonationData) {
   return {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ amount, currency }),
+    body: JSON.stringify(donationData),
   };
 }
 
-export default function (amount: number, currency: string) {
-  fetch(
-    `${process.env.BACKEND_URL}/donate`,
-    setRequestOptions(amount, currency)
-  )
+export default function (donationData: DonationData): void {
+  fetch(`${process.env.BACKEND_URL}/donate`, setRequestOptions(donationData))
     .then(async (response) => {
       const data = await response.json();
 
