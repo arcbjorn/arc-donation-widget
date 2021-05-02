@@ -1,4 +1,5 @@
 import { Currency, CurrencyCode, Preset } from "@/types";
+import convertCurrency from "./convertCurrency";
 
 export const currencies: Currency[] = [
   { name: "US Dollar", code: "USD", symbol: "$", rate: 1 },
@@ -8,18 +9,6 @@ export const currencies: Currency[] = [
 ];
 
 const usdPresets = [40, 100, 200, 1000, 2500, 5000];
-
-// TODO: Refactor / performance issues
-function beutify(n: number): number {
-  return n < 30 || (n % 10 === 0 && n % 3 === 0)
-    ? n
-    : beutify(Math.trunc(n / 10) * 10);
-}
-
-function convertCurrency(value: number, rate: number): string {
-  const result = rate === 1 ? value : beutify(value * rate);
-  return new Intl.NumberFormat("en-US").format(result);
-}
 
 export function initPresets(): Preset[] {
   let presets: Preset[] = [];
