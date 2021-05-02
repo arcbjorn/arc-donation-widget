@@ -23,4 +23,5 @@ export enum ConsoleMessageType {
 
 export enum ResponseErrorType {
   currencyNotFound = 'Donation currency does not exit in database. Might be seeding error',
+  zeroAmount = 'Donation amount must be more than 0',
 }

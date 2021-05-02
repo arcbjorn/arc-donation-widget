@@ -9,9 +9,9 @@ export default class DonationController {
 
     try {
       const currency = await Currency.findOne({ code: donation.currency });
-      if (!currency) {
-        throw new Error(ResponseErrorType.currencyNotFound);
-      }
+
+      if (!currency) throw new Error(ResponseErrorType.currencyNotFound);
+      if (donation.amount === 0) throw new Error(ResponseErrorType.zeroAmount);
 
       await Donation.create({ amount: donation.amount, currency: currency._id });
       ctx.response.status = 200;
