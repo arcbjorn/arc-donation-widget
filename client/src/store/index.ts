@@ -6,8 +6,10 @@ import {
   CurrencyCode,
   MutationType,
   Preset,
+  DonationData,
 } from "@/types";
 import { initCurrencyStore, initPresets } from "./initStore";
+import sendDonation from "@/api/sendDonation";
 
 export interface State {
   currencyStore: CurrencyStore;
@@ -32,6 +34,12 @@ export default createStore({
     currencies(state): Currency[] {
       return Object.values(state.currencyStore);
     },
+    donationData(state): DonationData {
+      return {
+        amount: state.donationValue,
+        currency: state.activeCurrency.code,
+      };
+    },
   },
   mutations: {
     setDonationValue(state, value: number): void {
@@ -51,6 +59,9 @@ export default createStore({
     },
     setActiveCurrency({ commit }, code: string): void {
       commit(MutationType.setActiveCurrency, code);
+    },
+    submitDonation({ getters }): void {
+      sendDonation(getters.donationData);
     },
   },
   modules: {},
