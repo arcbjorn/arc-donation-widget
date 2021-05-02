@@ -31,7 +31,7 @@ function beautify(n: number): number {
 
   // handle small preset value
   if (digits.length < 3) {
-    return roundFractional(n, 2) ? 50 : roundFractional(n, 2);
+    return roundFractional(n);
   } else {
     // handle large preset value
 
