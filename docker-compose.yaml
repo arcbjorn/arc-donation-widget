@@ -33,6 +33,8 @@ services:
     build:
       context: "./client"
       target: "develop-stage"
+    env_file:
+      - "./client/.env"
     ports:
       - "8080:8080"
     volumes:
