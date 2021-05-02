@@ -46,7 +46,18 @@ export default createStore({
       state.donationValue = value;
     },
     setActiveCurrency(state, value: string): void {
+      const oldCurrencyRate = state.activeCurrency.rate;
+
+      function convertToUSD(val: number) {
+        return val / oldCurrencyRate;
+      }
+
       state.activeCurrency = state.currencyStore[value];
+
+      // Convert to new currency
+      state.donationValue = Math.round(
+        convertToUSD(state.donationValue) * state.activeCurrency.rate
+      );
     },
   },
   actions: {
