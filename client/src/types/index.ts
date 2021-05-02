@@ -20,13 +20,14 @@ export type Preset = {
   [key in CurrencyCode]: number;
 };
 
-export type Donation = {
-  value: number;
-  currency: Currency;
+export type DonationData = {
+  amount: number;
+  currency: string;
 };
 
 export enum GetterType {
   currencies = "currencies",
+  donationData = "donationData",
 }
 
 export enum StateType {
@@ -36,9 +37,11 @@ export enum StateType {
 export enum ActionType {
   setDonationValue = "setDonationValue",
   setActiveCurrency = "setActiveCurrency",
+  submitDonation = "submitDonation",
 }
 
 export enum MutationType {
   setDonationValue = "setDonationValue",
   setActiveCurrency = "setActiveCurrency",
+  submitDonation = "submitDonation",
 }
