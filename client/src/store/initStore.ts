@@ -1,4 +1,4 @@
-import { Currency, CurrencyCode, Preset } from "@/types";
+import { Currency, CurrencyCode, CurrencyStore, Preset } from "@/types";
 import convertCurrency from "./convertCurrency";
 
 export const currencies: Currency[] = [
@@ -26,4 +26,12 @@ export function initPresets(): Preset[] {
   }));
 
   return presets;
+}
+
+export function initCurrencyStore(): CurrencyStore {
+  const store: CurrencyStore = {};
+  currencies.forEach((currency) => {
+    store[currency.code] = currency;
+  });
+  return store;
 }
