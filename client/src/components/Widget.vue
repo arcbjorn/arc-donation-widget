@@ -3,6 +3,7 @@ h1 {{ title }}
 .widget
   SuggestionsButtonGroup
   DonationBox
+  button.donate-btn(@click="sendDonation") Donate
 </template>
 
 <script lang="ts">
