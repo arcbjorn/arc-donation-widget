@@ -12,6 +12,10 @@ export type Currency = {
   rate: number;
 };
 
+export type CurrencyStore = {
+  [key: string]: Currency;
+};
+
 export type Preset = {
   [key in CurrencyCode]: number;
 };
@@ -21,10 +25,20 @@ export type Donation = {
   currency: Currency;
 };
 
-export enum MutationType {
-  setDonationValue = "setDonationValue",
+export enum GetterType {
+  currencies = "currencies",
+}
+
+export enum StateType {
+  activeCurrency = "activeCurrency",
 }
 
 export enum ActionType {
   setDonationValue = "setDonationValue",
+  setActiveCurrency = "setActiveCurrency",
+}
+
+export enum MutationType {
+  setDonationValue = "setDonationValue",
+  setActiveCurrency = "setActiveCurrency",
 }
