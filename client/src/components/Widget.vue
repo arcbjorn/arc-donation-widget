@@ -2,11 +2,13 @@
 h1 {{ title }}
 .widget
   SuggestionsButtonGroup
+  DonationBox
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import SuggestionsButtonGroup from "@/components/SuggestionsButtonGroup.vue";
+import DonationBox from "@/components/DonationBox.vue";
 
 export default defineComponent({
   name: "Widget",
@@ -15,6 +17,7 @@ export default defineComponent({
   },
   components: {
     SuggestionsButtonGroup,
+    DonationBox,
   },
 });
 </script>
