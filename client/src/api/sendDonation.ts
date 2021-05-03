@@ -1,4 +1,5 @@
 import { DonationData } from "@/types";
+import config from "@/env.config";
 
 function setRequestOptions(donationData: DonationData) {
   return {
@@ -8,10 +9,8 @@ function setRequestOptions(donationData: DonationData) {
   };
 }
 
-const apiUrl = "http://localhost:8081";
-
 export default function (donationData: DonationData): void {
-  fetch(`${apiUrl}/donate`, setRequestOptions(donationData))
+  fetch(`${config.apiUrl}/donate`, setRequestOptions(donationData))
     .then(async (response) => {
       const data = await response.json();
 
