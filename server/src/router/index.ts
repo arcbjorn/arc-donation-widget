@@ -3,7 +3,7 @@ import DonationController from '../controllers/donation.controller';
 
 const router = new Router();
 
-router.post('/donation', DonationController.record);
+router.post('/donate', DonationController.record);
 
 router.get('/donations', DonationController.all);
 
