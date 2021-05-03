@@ -8,8 +8,10 @@ function setRequestOptions(donationData: DonationData) {
   };
 }
 
+const apiUrl = "http://localhost:8081";
+
 export default function (donationData: DonationData): void {
-  fetch(`${process.env.BACKEND_URL}/donate`, setRequestOptions(donationData))
+  fetch(`${apiUrl}/donate`, setRequestOptions(donationData))
     .then(async (response) => {
       const data = await response.json();
 
