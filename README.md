@@ -1,25 +1,43 @@
+<p align="center" width="100%">
+    <img width="50%" src="https://i.ibb.co/x59DhyF/arc-donation-widget.png"> 
+</p>
+
 # Donation widget
+
+The widget provides web interface to:
+
+- choose an amount to donate from suggestions
+- pick a currency of donation
+- give a custom donation amount
+- make a donation
+
+The record of donation will be saved in MongoDB with its amount & currency.
+
+All donations can be viewed at [http://localhost:8081/donations](http://localhost:8081/donations).
 
 ## Development (Docker-Compose version) &#8592; use this one :)
 
 ```bash
-# Clean up docker-compose environment:
-# - remove local containers
-# - remove named volumes declared in the compose file and anonymous volumes attached to containers
-# - remove containers for services not defined in the compose file
-$ docker-compose down --rmi local --volumes --remove-orphans
+$ cd <project-folder>
 
-# Rebuild containers:
+# Build containers:
 $ docker-compose build --no-cache
 
 # Run the application in the development mode (all containers):
 $ docker-compose up
 
 # Also you can run only needed services:
-$ docker-compose up <service_name1> <service_name2>
+$ docker-compose up client server mongodb
 
 # View service logs:
 $ docker-compose logs <service_name>
+
+# Clean up docker-compose environment:
+# - remove local containers
+# - remove named volumes declared in the compose file and anonymous volumes attached to containers
+# - remove containers for services not defined in the compose file
+$ docker-compose down --rmi local --volumes --remove-orphans
+
 ```
 
 Docker-compose-based development environment supports editing of the
