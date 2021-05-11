@@ -40,7 +40,8 @@ export enum StateType {
 }
 
 export enum ActionType {
-  setDonationValue = "setDonationValue",
+  setDonationValueByPreset = "setDonationValueByPreset",
+  setDonationValueByInput = "setDonationValueByInput",
   setActiveCurrency = "setActiveCurrency",
   submitDonation = "submitDonation",
 }

@@ -4,7 +4,7 @@
     v-for="preset, i in presets"
     :key="i"
     :class="getActiveButton(preset)"
-    @click="setDonationValue(preset)"
+    @click="setDonationValueByPreset(preset)"
   ) {{ `${activeCurrency.symbol}${getValue(preset)}` }}
 </template>
 
@@ -24,7 +24,7 @@ export default defineComponent({
     }),
   },
   methods: {
-    ...mapActions([ActionType.setDonationValue]),
+    ...mapActions([ActionType.setDonationValueByPreset]),
     getActiveButton(preset: Preset): string {
       if (
         this.donationValue === preset[this.activeCurrency.code as CurrencyCode]

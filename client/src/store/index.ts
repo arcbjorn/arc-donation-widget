@@ -61,12 +61,12 @@ export default createStore({
     },
   },
   actions: {
-    setDonationValue({ commit, state }, value: Preset | number): void {
-      const val =
-        typeof value === "number"
-          ? value
-          : value[state.activeCurrency.code as CurrencyCode];
-      commit(MutationType.setDonationValue, val);
+    setDonationValueByPreset({ commit, state }, preset: Preset): void {
+      const value = preset[state.activeCurrency.code as CurrencyCode];
+      commit(MutationType.setDonationValue, value);
+    },
+    setDonationValueByInput({ commit }, value: number): void {
+      commit(MutationType.setDonationValue, value);
     },
     setActiveCurrency({ commit }, code: string): void {
       commit(MutationType.setActiveCurrency, code);

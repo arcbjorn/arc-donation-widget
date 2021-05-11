@@ -33,9 +33,9 @@ export default defineComponent({
     }),
   },
   methods: {
-    ...mapActions([ActionType.setDonationValue]),
+    ...mapActions([ActionType.setDonationValueByInput]),
     setValue(v: string) {
-      this.setDonationValue(+v);
+      this.setDonationValueByInput(+v);
     },
     handleNan(event: KeyboardEvent) {
       if (isNaN(Number(event.key))) {
