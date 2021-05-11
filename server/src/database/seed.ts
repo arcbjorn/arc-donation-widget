@@ -10,20 +10,14 @@ const defaultCurrencies = [
 
 export const seed = async () => {
   try {
-    Currency.find({}, (err, currencies) => {
-      if (err) {
-        console.error(err);
-        return;
+    const currencies = await Currency.find({});
+    defaultCurrencies.forEach((curr) => {
+      if (!currencies.find((c) => (c.code = curr.code))) {
+        Currency.create(curr);
       }
-
-      defaultCurrencies.forEach((curr) => {
-        if (!currencies.find((c) => (c.code = curr.code))) {
-          Currency.create(curr);
-        }
-      });
-
-      // Currency.find({}, (_, docs) => console.log(docs));
     });
+
+    // await Currency.find({}, (_, docs) => console.log(docs));
   } catch (error) {
     console.error(`${ConsoleMessageType.currenciesSeedError}: ${error.message}`);
   }
