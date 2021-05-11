@@ -2,10 +2,15 @@ import { Currency, CurrencyCode, CurrencyStore, Preset } from "@/types";
 import convertCurrency from "./convertCurrency";
 
 export const currencies: Currency[] = [
-  { name: "US Dollar", code: "USD", symbol: "$", rate: 1 },
-  { name: "Euro", code: "EUR", symbol: "€", rate: 0.897597 },
-  { name: "British Pound", code: "GBP", symbol: "£", rate: 0.81755 },
-  { name: "Russian Ruble", code: "RUB", symbol: "₽", rate: 63.461993 },
+  { name: "US Dollar", code: CurrencyCode.USD, symbol: "$", rate: 1 },
+  { name: "Euro", code: CurrencyCode.EUR, symbol: "€", rate: 0.897597 },
+  { name: "British Pound", code: CurrencyCode.GBP, symbol: "£", rate: 0.81755 },
+  {
+    name: "Russian Ruble",
+    code: CurrencyCode.RUB,
+    symbol: "₽",
+    rate: 63.461993,
+  },
 ];
 
 const usdPresets = [40, 100, 200, 1000, 2500, 5000];
@@ -29,9 +34,10 @@ export function initPresets(): Preset[] {
 }
 
 export function initCurrencyStore(): CurrencyStore {
-  const store: CurrencyStore = {};
+  const store: { [key: string]: Currency } = {};
   currencies.forEach((currency) => {
     store[currency.code] = currency;
   });
-  return store;
+  // Casting is allowed, because Currency "code" field string is generated from the same enum
+  return store as CurrencyStore;
 }

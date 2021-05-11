@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { State } from "@/store";
-import { ActionType, Currency, CurrencyCode, Preset } from "@/types";
+import { ActionType, Currency, Preset } from "@/types";
 import { defineComponent } from "vue";
 import { mapActions, mapState } from "vuex";
 export default defineComponent({
@@ -26,18 +26,14 @@ export default defineComponent({
   methods: {
     ...mapActions([ActionType.setDonationValueByPreset]),
     getActiveButton(preset: Preset): string {
-      if (
-        this.donationValue === preset[this.activeCurrency.code as CurrencyCode]
-      ) {
+      if (this.donationValue === preset[this.activeCurrency.code]) {
         return "bg-green-500 text-white border-transparent";
       } else {
         return "bg-white border-gray-400 hover:bg-green-100";
       }
     },
     getValue(preset: Preset) {
-      return preset[this.activeCurrency.code as CurrencyCode].toLocaleString(
-        "en-US"
-      );
+      return preset[this.activeCurrency.code].toLocaleString("en-US");
     },
   },
 });

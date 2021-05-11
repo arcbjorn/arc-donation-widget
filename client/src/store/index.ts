@@ -45,14 +45,14 @@ export default createStore({
     setDonationValue(state, value: number): void {
       state.donationValue = value;
     },
-    setActiveCurrency(state, value: string): void {
+    setActiveCurrency(state, code: CurrencyCode): void {
       const oldCurrencyRate = state.activeCurrency.rate;
 
       function convertToUSD(val: number) {
         return val / oldCurrencyRate;
       }
 
-      state.activeCurrency = state.currencyStore[value];
+      state.activeCurrency = state.currencyStore[code];
 
       // Convert to new currency
       state.donationValue = Math.round(
@@ -62,13 +62,13 @@ export default createStore({
   },
   actions: {
     setDonationValueByPreset({ commit, state }, preset: Preset): void {
-      const value = preset[state.activeCurrency.code as CurrencyCode];
+      const value = preset[state.activeCurrency.code];
       commit(MutationType.setDonationValue, value);
     },
     setDonationValueByInput({ commit }, value: number): void {
       commit(MutationType.setDonationValue, value);
     },
-    setActiveCurrency({ commit }, code: string): void {
+    setActiveCurrency({ commit }, code: CurrencyCode): void {
       commit(MutationType.setActiveCurrency, code);
     },
     submitDonation({ getters }): void {

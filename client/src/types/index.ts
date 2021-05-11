@@ -12,13 +12,13 @@ export interface DonationResponse {
 
 export type Currency = {
   name: string;
-  code: string;
+  code: CurrencyCode;
   symbol: string;
   rate: number;
 };
 
 export type CurrencyStore = {
-  [key: string]: Currency;
+  [key in CurrencyCode]: Currency;
 };
 
 export type Preset = {
