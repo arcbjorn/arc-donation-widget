@@ -5,6 +5,11 @@ export enum CurrencyCode {
   RUB = "RUB",
 }
 
+export interface DonationResponse {
+  ok: boolean;
+  error?: string;
+}
+
 export type Currency = {
   name: string;
   code: string;

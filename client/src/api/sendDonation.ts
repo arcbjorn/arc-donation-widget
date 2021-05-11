@@ -1,4 +1,4 @@
-import { DonationData } from "@/types";
+import { DonationData, DonationResponse } from "@/types";
 import config from "@/env.config";
 
 function setRequestOptions(donationData: DonationData) {
@@ -9,22 +9,24 @@ function setRequestOptions(donationData: DonationData) {
   };
 }
 
-export default function (donationData: DonationData): void {
-  fetch(`${config.apiUrl}/donate`, setRequestOptions(donationData))
-    .then(async (response) => {
-      const data = await response.json();
+export default async function (donationData: DonationData): Promise<void> {
+  try {
+    const response = await fetch(
+      `${config.apiUrl}/donate`,
+      setRequestOptions(donationData)
+    );
+    const data: DonationResponse = await response.json();
 
-      // HTTP errors
-      if (!response.ok) {
-        const error = (data && data.message) || response.status;
-        return Promise.reject(error);
-      }
+    // HTTP errors
+    if (!response.ok) {
+      const message = (data && data.error) || response.status.toString();
+      throw new Error(message);
+    }
 
-      alert("Thank you for your donation!");
-    })
+    alert("Thank you for your donation!");
+  } catch (error) {
     // Network Error + thrown by promise HTTP errors
-    .catch((error) => {
-      alert(`There was an error: ${error.message}`);
-      console.error("There was an error:", error.message);
-    });
+    console.error("There was an error:", error.message);
+    alert(`There was an error: ${error.message}`);
+  }
 }
