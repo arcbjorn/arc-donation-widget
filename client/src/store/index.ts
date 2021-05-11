@@ -7,6 +7,8 @@ import {
   MutationType,
   Preset,
   DonationData,
+  ActionType,
+  GetterType,
 } from "@/types";
 import { initCurrencyStore, initPresets } from "./initStore";
 import sendDonation from "@/api/sendDonation";
@@ -31,10 +33,10 @@ export default createStore({
     activeCurrency: store[CurrencyCode.USD],
   },
   getters: {
-    currencies(state): Currency[] {
+    [GetterType.currencies]: (state): Currency[] => {
       return Object.values(state.currencyStore);
     },
-    donationData(state): DonationData {
+    [GetterType.donationData]: (state): DonationData => {
       return {
         amount: state.donationValue,
         currency: state.activeCurrency.code,
@@ -42,10 +44,10 @@ export default createStore({
     },
   },
   mutations: {
-    setDonationValue(state, value: number): void {
+    [MutationType.setDonationValue]: (state, value: number): void => {
       state.donationValue = value;
     },
-    setActiveCurrency(state, code: CurrencyCode): void {
+    [MutationType.setActiveCurrency]: (state, code: CurrencyCode): void => {
       const oldCurrencyRate = state.activeCurrency.rate;
 
       function convertToUSD(val: number) {
@@ -61,17 +63,20 @@ export default createStore({
     },
   },
   actions: {
-    setDonationValueByPreset({ commit, state }, preset: Preset): void {
+    [ActionType.setDonationValueByPreset]: (
+      { commit, state },
+      preset: Preset
+    ): void => {
       const value = preset[state.activeCurrency.code];
       commit(MutationType.setDonationValue, value);
     },
-    setDonationValueByInput({ commit }, value: number): void {
+    [ActionType.setDonationValueByInput]: ({ commit }, value: number): void => {
       commit(MutationType.setDonationValue, value);
     },
-    setActiveCurrency({ commit }, code: CurrencyCode): void {
+    [ActionType.setActiveCurrency]: ({ commit }, code: CurrencyCode): void => {
       commit(MutationType.setActiveCurrency, code);
     },
-    submitDonation({ getters }): void {
+    [ActionType.submitDonation]: ({ getters }): void => {
       sendDonation(getters.donationData);
     },
   },
