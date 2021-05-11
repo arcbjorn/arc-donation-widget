@@ -21,7 +21,7 @@ export enum ConsoleMessageType {
   serverStartSuccess = 'Server started at: http://localhost:',
 }
 
-export enum ResponseErrorType {
+export enum ResponseErrorMessageEnum {
   currencyNotFound = 'Donation currency does not exit in database. Might be seeding error',
   zeroAmount = 'Donation amount must be more than 0',
 }

@@ -1,5 +1,6 @@
 import { Context } from 'koa';
-import { DonationRequest, DonationResponse, ResponseErrorType } from '../types';
+import { DonationRequest, DonationResponse, ResponseErrorMessageEnum } from '../types';
+import { CurrencyNotFoundError, ZeroAmountError } from '../errors';
 import { Donation } from '../models';
 import { Currency } from '../models';
 
@@ -10,14 +11,14 @@ export default class DonationController {
     try {
       const currency = await Currency.findOne({ code: donation.currency });
 
-      if (!currency) throw new Error(ResponseErrorType.currencyNotFound);
-      if (donation.amount === 0) throw new Error(ResponseErrorType.zeroAmount);
+      if (!currency) throw new CurrencyNotFoundError();
+      if (donation.amount === 0) throw new ZeroAmountError();
 
       await Donation.create({ amount: donation.amount, currency: currency._id });
       ctx.response.status = 200;
       ctx.response.body = <DonationResponse>{ ok: true };
     } catch (error) {
-      if (error.message === ResponseErrorType.currencyNotFound) {
+      if (error.message === ResponseErrorMessageEnum.currencyNotFound) {
         ctx.response.status = 404;
       } else {
         ctx.response.status = 400;
